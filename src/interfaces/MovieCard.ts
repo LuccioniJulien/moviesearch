@@ -3,5 +3,5 @@ import IMovie from './movie';
 
 export default interface IMovieCard {
     setIdMovie:React.Dispatch<React.SetStateAction<string>>,
-    movie:IMovie
+    movie:IMovie | undefined
 }

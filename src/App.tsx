@@ -1,40 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import SearchBar from "./tsx/components/searchbar"
 import { Row, Col, ListGroup } from 'react-bootstrap';
-import MovieRow from "./tsx/components/movieRow"
-import MyToast from "./tsx/components/toast";
-import MyCard from "./tsx/components/card";
+import { MovieRow, SearchBar, Card, Toast } from "./tsx/components";
 import { getMovies, getMovieDetails } from "./api"
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import IMovie from './interfaces/movie';
 
-
 const App: React.FC = () => {
 
-  const initialMovies: Array<IMovie> = []
-  const initialMovie: IMovie = {
-    Title: "",
-    imdbID: "",
-    Year: "",
-    Rated: "",
-    Released: "",
-    Runtime: "",
-    Genre: "",
-    Director: "",
-    Writer: "",
-    Actors: "",
-    Plot: "",
-    Poster: ""
-  }
   const [isFetching, setIsFetching] = useState(false);
   const [isFetchingDetailsFinished, setIsFetchingDetailsFinished] = useState(false);
-  const [movies, setMovies] = useState(initialMovies);
+  const [movies, setMovies] = useState<Array<IMovie>>([]);
   const [strMovie, setStrMovie] = useState("");
   const [show, setShow] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [idMovie, setIdMovie] = useState("");
-  const [movie, setMovie] = useState(initialMovie);
+  const [movie, setMovie] = useState<IMovie>();
 
   const toastAction = { show, setShow, message: errorMessage };
   const searchAction = { setIsFetching, setStrMovie };
@@ -66,16 +47,16 @@ const App: React.FC = () => {
   useEffect(() => {
     if (isFetching)
       setMyMoviesInState()
-    if (idMovie == "")
+    if (idMovie === "")
       setIsFetchingDetailsFinished(false)
-    if (idMovie != "" && !isFetchingDetailsFinished) {
+    if (idMovie !== "" && !isFetchingDetailsFinished) {
       setMyMovieInState()
     }
   })
 
   return (
     <>
-      <MyToast {...toastAction} />
+      <Toast {...toastAction} />
       <div className="Top">
         <div className="Wrap">
           <SearchBar {...searchAction} />
@@ -83,7 +64,7 @@ const App: React.FC = () => {
       </div>
       <div className="Center">
         <Row>
-          <Col>{idMovie != "" && isFetchingDetailsFinished ? <MyCard {...{ setIdMovie, movie }}></MyCard> : (<ListGroup>
+          <Col>{idMovie !== "" && isFetchingDetailsFinished ? <Card {...{ setIdMovie, movie }}/> : (<ListGroup>
             {movies.map((movie, index) => <MovieRow key={index.toString()} {...{ setIdMovie, movie }} ></MovieRow>)}
           </ListGroup>)}
           </Col>

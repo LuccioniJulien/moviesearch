@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { InputGroup, FormControl, Button } from 'react-bootstrap';
-import ISearch from '../../../interfaces/search';
+import ISearch from '../../interfaces/search';
 
 const SearchBar: React.FC<ISearch> = ({ setStrMovie, setIsFetching }: ISearch) => {
 

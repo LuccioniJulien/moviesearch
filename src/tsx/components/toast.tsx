@@ -1,6 +1,6 @@
 import React from "react";
 import { Toast } from 'react-bootstrap';
-import IToast from "../../../interfaces/toast";
+import IToast from "../../interfaces/toast";
 
 const MyToast: React.FC<IToast> = ({ message, setShow, show }: IToast) => {
 
